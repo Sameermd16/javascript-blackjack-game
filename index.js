@@ -1,21 +1,23 @@
 // 1. Create two variables, firstCard and secondCard. 
 // Set their values to a random number between 2-11
 // 2. Create a variable, sum, and set it to the sum of the two cards
-
-let firstCard = getRandomCard(); 
-let secondCard = getRandomCard(); 
-let cards = [firstCard, secondCard]
-
-let sum = firstCard + secondCard;
-
+let player = {
+    name: 'Sam',
+    chips: 100
+}
+let cards = []
+let sum = 0
 let hasBlackjack = false;
-let isAlive = true;
+let isAlive = false;
 
 let message = "";
 
 let messageEl = document.getElementById("message-el");
 let sumEl = document.getElementById("sum-el");
 let cardsEl = document.querySelector("#cards-el");
+let playerEl = document.getElementById("player-el");
+
+playerEl.textContent = player.name + ": " + player.chips
 
 function getRandomCard() {
     //generates random number between 1 and 13
@@ -32,6 +34,11 @@ function getRandomCard() {
 }
 
 function startGame() {
+    isAlive = true
+    let firstCard = getRandomCard(); 
+    let secondCard = getRandomCard(); 
+    cards = [firstCard, secondCard]
+    sum = firstCard + secondCard;
     renderGame()
 }
 function renderGame() {
@@ -56,10 +63,15 @@ function newCard() {
     // 1. Create a card variable, and hard code its value to a number (2-11)
     // 2. Add the new card to the sum variable
     // 3. Call startGame()
-    let card = getRandomCard();
-    cards.push(card)
-    sum += card;
-    console.log(cards)
-    renderGame()
+
+    // Only allow the player to get a new card if she IS alive and does NOT have Blackjack
+    if (isAlive === true && hasBlackjack === false){
+
+        let card = getRandomCard();
+        cards.push(card)
+        sum += card;
+        console.log(cards)
+        renderGame()
+    }
 }
 
